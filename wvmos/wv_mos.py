@@ -67,7 +67,7 @@ class Wav2Vec2MOS(nn.Module):
             self.encoder.eval()
             for p in self.encoder.parameters():
                 p.requires_grad_(False)
-        self.load_state_dict(extract_prefix('model.', torch.load(path)['state_dict']))
+        self.load_state_dict(extract_prefix('model.', torch.load(path, map_location=torch.device('cpu'))['state_dict']))
         self.eval()
         self.cuda_flag = cuda
         if cuda:
